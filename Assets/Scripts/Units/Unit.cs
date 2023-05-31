@@ -13,21 +13,20 @@ public class Unit : MonoBehaviour, IHealth
     [SerializeField] protected float attackDistance;
     [SerializeField] protected float agrDistance;
     [SerializeField] protected ContactFilter2D targetsFilter;
-    [SerializeField] List<Collider2D> findTargets;
+    
 
     public bool isAlive => !isDead;
     public Transform unitTransform => transform;
 
     protected Rigidbody2D rb;
-    [SerializeField] protected List<IHealth> targets;
-    [SerializeField] protected Collider2D currentTarget;
+    protected Collider2D currentTarget;
     protected float attackTimer;
+    protected List<Collider2D> findTargets;
 
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        targets = new List<IHealth>();
     }
     private void Start()
     {
@@ -50,7 +49,7 @@ public class Unit : MonoBehaviour, IHealth
         if (health <= 0) Death();
     }
 
-    protected void Death()
+    protected virtual void Death()
     {
         isDead = true;
         GetComponent<Collider2D>().enabled = false;

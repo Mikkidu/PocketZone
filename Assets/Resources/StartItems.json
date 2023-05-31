@@ -1,0 +1,12 @@
+{
+	"startItems": [
+		{
+			"itemID":"IT01",
+			"amount":1
+		},
+		{
+			"itemID":"IT03",
+			"amount":10
+		}
+	]
+}

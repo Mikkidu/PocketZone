@@ -3,7 +3,7 @@ using System.Linq;
 
 public class Database : MonoBehaviour
 {
-
+    
     public ItemDatabase items;
     private static Database instance;
 
@@ -19,13 +19,13 @@ public class Database : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    //Âûäà¸ì ïðåäìåò ïî ID
+    //Ð’Ñ‹Ð´Ð°Ñ‘Ð¼ Ð¿Ñ€ÐµÐ´Ð¼ÐµÑ‚ Ð¿Ð¾ ID
     public static Item GetItemByID(string itemID)
     {
         //Debug.Log($"database: {itemID}");
         return instance.items.allItems.FirstOrDefault(i => i.itemID == itemID);
     }
-    //Âûäà¸ì ñïðàéò ïî ID
+    //Ð’Ñ‹Ð´Ð°Ñ‘Ð¼ ÑÐ¿Ñ€Ð°Ð¹Ñ‚ Ð¿Ð¾ ID
     public static Sprite GetSpriteByID(string itemID)
     {
         return instance.items.allItems.FirstOrDefault(i => i.itemID == itemID).icon;

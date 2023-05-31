@@ -7,12 +7,15 @@ public class InventorySlot : MonoBehaviour
     public Text textAmount;
     public string slotItemID;
 
-    //Заполняем слот инвентаря
+    //Р—Р°РїРѕР»РЅСЏРµРј СЃР»РѕС‚ РёРЅРІРµРЅС‚Р°СЂСЏ
     public void AddItem(string itemID, int amount)
     {
-        textAmount.text = amount.ToString();
-        textAmount.enabled = true;
-        textAmount.transform.parent.gameObject.GetComponent<Image>().enabled = true;
+        if (amount > 1)
+        {
+            textAmount.text = amount.ToString();
+            textAmount.enabled = true;
+            textAmount.transform.parent.gameObject.GetComponent<Image>().enabled = true;
+        }
 
         slotItemID = itemID;
 
@@ -20,7 +23,7 @@ public class InventorySlot : MonoBehaviour
         icon.enabled = true;
     }
 
-    //Очищаем слот инвентаря
+    //РћС‡РёС‰Р°РµРј СЃР»РѕС‚ РёРЅРІРµРЅС‚Р°СЂСЏ
     public void ClearSlot()
     {
         textAmount.text = null;

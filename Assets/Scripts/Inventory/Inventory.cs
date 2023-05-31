@@ -18,14 +18,11 @@ public class Inventory : MonoBehaviour
     }
     #endregion
 
-    //Сигнализирует об изенениях в инвентаре
+
     public delegate void OnItemChanged();
     public OnItemChanged OnItemChangedCallback;
-    //Спсок предметов в инвентаре, доступ только через методы
-    List<InventoryItem> items = new List<InventoryItem>();
+    private List<InventoryItem> items = new List<InventoryItem>();
 
-
-    //Добавление в инвентарь
     public void Add(string itemID, int amount)
     {
         if (items.FirstOrDefault(i => i.itemID == itemID) != null)
@@ -40,7 +37,6 @@ public class Inventory : MonoBehaviour
             OnItemChangedCallback.Invoke();
     }
 
-    //Расходование предметов
     public void Spend(string itemID, int amount)
     {
         items.FirstOrDefault(i => i.itemID == itemID).amount -= amount;
@@ -55,10 +51,10 @@ public class Inventory : MonoBehaviour
     //Выдаёт количество по ID, ели нет предмета - 0
     public int GetAmountByID(string itemID)
     {
-        //Debug.Log($"Inventory: {itemID}, {items.FirstOrDefault(i => i.itemID == itemID).amount}");
         if (!CheckItemByID(itemID)) return 0;
         else return items.FirstOrDefault(i => i.itemID == itemID).amount;
     }
+
     //Проверка наличия предмета
     public bool CheckItemByID(string itemID)
     {
@@ -72,7 +68,8 @@ public class Inventory : MonoBehaviour
         }
 
     }
-    //Выдаёт предметы двумерным списком
+
+    //Выдаёт предметы списком
     public string[] GetItemsID()
     {
         string[] arrayID = new string[items.Count];

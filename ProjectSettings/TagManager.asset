@@ -45,3 +45,6 @@ TagManager:
   - name: Creatures
     uniqueID: 4209660577
     locked: 0
+  - name: Loot
+    uniqueID: 1811460901
+    locked: 0

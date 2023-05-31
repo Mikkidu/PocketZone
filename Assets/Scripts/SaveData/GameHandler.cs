@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameHandler : MonoBehaviour
@@ -9,7 +11,7 @@ public class GameHandler : MonoBehaviour
     {
         if (instance != null)
         {
-            Debug.LogWarning("Найдено больше одного примера загрузчика");
+            Debug.LogWarning("Найено больше одного примера загрузчика");
             return;
         }
         instance = this;
@@ -18,7 +20,7 @@ public class GameHandler : MonoBehaviour
 
 
     ArrayItemData loadedItemdata;
-
+    //Для инвентаря сбор информации удался
     void Start()
     {
         TextAsset jsonItemData = Resources.Load<TextAsset>("StartItems");
@@ -36,7 +38,7 @@ public class GameHandler : MonoBehaviour
     }
 
 
-    /*//Класс предмета для сбора данных json
+    //Класс предмета для сбора данныиз json
     [Serializable]
     class ItemData
     {
@@ -49,9 +51,7 @@ public class GameHandler : MonoBehaviour
     class ArrayItemData
     {
         public List<ItemData> startItems;
-    }*/
-
-
+    }
 
 
 
