@@ -4357,7 +4357,7 @@ MonoBehaviour:
   _numberEnemies: 3
   _leftBound: -5
   _rightBound: 24
-  _upBound: 9
+  _upBound: 8
   _downBound: -9
 --- !u!4 &513921814
 Transform:
