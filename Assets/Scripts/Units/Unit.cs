@@ -107,7 +107,7 @@ public class Unit : MonoBehaviour, IHealth
         return (transform.position - target.bounds.center).magnitude;
     }
 
-    protected void Attack()
+    public void Attack()
     {
         if (attackTimer <= Time.realtimeSinceStartup && currentTarget != null)
         {

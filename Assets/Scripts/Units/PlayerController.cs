@@ -10,6 +10,11 @@ public class PlayerController : Unit
         base.Start();
     }
 
+    protected override void Update()
+    {
+        
+    }
+
     private void FixedUpdate()
     {
         if (!isDead)
