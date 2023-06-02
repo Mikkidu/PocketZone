@@ -19,13 +19,12 @@ public class Database : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    //Выдаём предмет по ID
+ 
     public static Item GetItemByID(string itemID)
     {
-        //Debug.Log($"database: {itemID}");
         return instance.items.allItems.FirstOrDefault(i => i.itemID == itemID);
     }
-    //Выдаём спрайт по ID
+
     public static Sprite GetSpriteByID(string itemID)
     {
         return instance.items.allItems.FirstOrDefault(i => i.itemID == itemID).icon;

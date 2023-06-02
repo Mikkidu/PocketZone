@@ -978,7 +978,7 @@ ScriptedImporter:
     parentGroupIndex: -1
     uvTransform: {x: 84, y: 194}
     spritePosition: {x: 97, y: 124}
-  - name: AK-74
+  - name: Weapon
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0

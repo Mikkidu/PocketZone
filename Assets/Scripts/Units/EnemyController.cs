@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyController : Unit
@@ -9,12 +7,11 @@ public class EnemyController : Unit
     {
         if (!isDead && currentTarget != null)
         {
-            if (GetDistance(currentTarget) > attackDistance)
+            if (GetDistance(currentTarget) > attackDistance && attackTimer < Time.realtimeSinceStartup)
             {
-
                 Move((currentTarget.bounds.center - transform.position).normalized);
             }
-            //Debug.Log(currentTarget.bounds.center + " " + currentTarget);
+            else Move(Vector2.zero);
         }
 
     }
@@ -22,6 +19,6 @@ public class EnemyController : Unit
     protected override void Death()
     {
         base.Death();
-        Instantiate(_loot, transform.position, Quaternion.identity).Initialize("IT02", 1);
+        Instantiate(_loot, transform.position, Quaternion.identity).Initialize("IT03", 10);
     }
 }

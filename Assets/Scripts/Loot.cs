@@ -8,9 +8,7 @@ public class Loot : MonoBehaviour
     [SerializeField] private SpriteRenderer _icon;
 
     [SerializeField] private string _itemID;
-    [SerializeField]private int _amount;
-
-    public string GetID => _itemID;
+    [SerializeField] private int _amount;
 
     public void Initialize(string itemID, int itemAmount)
     {

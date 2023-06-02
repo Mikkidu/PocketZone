@@ -11,7 +11,7 @@ public class Inventory : MonoBehaviour
     {
         if (instance != null)
         {
-            Debug.LogWarning("Найено больше одного примера инвентаря");
+            Debug.LogWarning("Найдено больше одного примера инвентаря");
             return;
         }
         instance = this;
@@ -22,6 +22,12 @@ public class Inventory : MonoBehaviour
     public delegate void OnItemChanged();
     public OnItemChanged OnItemChangedCallback;
     private List<InventoryItem> items = new List<InventoryItem>();
+    private PlayerController _player;
+
+    private void Start()
+    {
+        GameHandler.instance.FillInventory();
+    }
 
     public void Add(string itemID, int amount)
     {
@@ -48,14 +54,21 @@ public class Inventory : MonoBehaviour
             OnItemChangedCallback.Invoke();
     }
 
-    //Выдаёт количество по ID, ели нет предмета - 0
+    public void DeleteItem(string itemID)
+    {
+        items.RemoveAll(i => i.itemID == itemID);
+        if (OnItemChangedCallback != null)
+            OnItemChangedCallback.Invoke();
+    }
+
+
     public int GetAmountByID(string itemID)
     {
         if (!CheckItemByID(itemID)) return 0;
         else return items.FirstOrDefault(i => i.itemID == itemID).amount;
     }
 
-    //Проверка наличия предмета
+
     public bool CheckItemByID(string itemID)
     {
         if (items.FirstOrDefault(i => i.itemID == itemID) == null)
@@ -66,10 +79,8 @@ public class Inventory : MonoBehaviour
         {
             return true;
         }
-
     }
 
-    //Выдаёт предметы списком
     public string[] GetItemsID()
     {
         string[] arrayID = new string[items.Count];

@@ -7,5 +7,4 @@ public class Item : ScriptableObject
     public string itemID = null;
     new public string name = "New Item";
     public Sprite icon = null;
-    //public bool isDefaultItem = false;
 }

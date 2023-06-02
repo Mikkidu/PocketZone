@@ -1,6 +1,6 @@
 using System;
 
-//Класс предметов в инвентаре
+
 [Serializable]
 public class InventoryItem
 {

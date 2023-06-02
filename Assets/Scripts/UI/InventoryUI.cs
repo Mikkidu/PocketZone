@@ -2,29 +2,34 @@ using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
 {
+
+    #region Singleton
+
+    public static InventoryUI instance;
+
+    void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogWarning("Найдено больше одного примера интерфейса инвентаря");
+            return;
+        }
+        instance = this;
+    }
+
+    #endregion
+
     public Transform itemsParent;
     Inventory inventory;
-    InventorySlot[] slots;
-    bool i = true;
+    InventorySlotUI[] slots;
+    public string selectedID;
+
 
     void Start()
     {
         inventory = Inventory.instance;
         inventory.OnItemChangedCallback += UpdateUI;
-
-        slots = itemsParent.GetComponentsInChildren<InventorySlot>();
-
-
-    }
-
-    void Update()
-    {
-        //Костыль. запускаем заполнение инвентаря после старта
-        if (i)
-        {
-            i = false;
-            GameHandler.instance.FillInventory();
-        }
+        slots = itemsParent.GetComponentsInChildren<InventorySlotUI>();
     }
 
     void UpdateUI()
@@ -41,5 +46,10 @@ public class InventoryUI : MonoBehaviour
                 slots[i].ClearSlot();
             }
         }
+    }
+
+    public void DeleteItem()
+    {
+        inventory.DeleteItem(selectedID);
     }
 }

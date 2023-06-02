@@ -48,3 +48,6 @@ TagManager:
   - name: Loot
     uniqueID: 1811460901
     locked: 0
+  - name: UI
+    uniqueID: 3049134093
+    locked: 0

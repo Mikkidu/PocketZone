@@ -1,10 +1,10 @@
-using System;
+using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameHandler : MonoBehaviour
 {
-    #region Singleton
+
     public static GameHandler instance;
 
     void Awake()
@@ -15,45 +15,69 @@ public class GameHandler : MonoBehaviour
             return;
         }
         instance = this;
+
+        LoadInventory();
     }
-    #endregion
 
-
-    ArrayItemData loadedItemdata;
-    //Для инвентаря сбор информации удался
-    void Start()
+    private void Start()
     {
-        TextAsset jsonItemData = Resources.Load<TextAsset>("StartItems");
-
-        loadedItemdata = JsonUtility.FromJson<ArrayItemData>(jsonItemData.text);
-
+        _inventory = Inventory.instance;
+        _inventory.OnItemChangedCallback += SaveInventory;
     }
-    //передаём стартовые предметы в инвентарь
+
+    private Inventory _inventory;
+    private ArrayItemData _loadedItemdata;
+
     public void FillInventory()
     {
-        foreach (ItemData item in loadedItemdata.startItems)
+        foreach (ItemData item in _loadedItemdata.startItems)
         {
-            Inventory.instance.Add(item.itemID, item.amount);
+            _inventory.Add(item.itemID, item.amount);
         }
     }
 
-
-    //Класс предмета для сбора данныиз json
-    [Serializable]
-    class ItemData
+    public void DefaultLoad()
     {
-        public string itemID;
-        public int amount;
-    }
-    [Serializable]
-
-    //Класс списка предметов для загрузки с json
-    class ArrayItemData
-    {
-        public List<ItemData> startItems;
+        TextAsset jsonItemData = Resources.Load<TextAsset>("StartItems");
+        _loadedItemdata = JsonUtility.FromJson<ArrayItemData>(jsonItemData.text);
+        string[] itemsID = _inventory.GetItemsID();
+        foreach (string id in itemsID)
+        {
+            _inventory.DeleteItem(id);
+        }
+        FillInventory();
     }
 
+    private void LoadInventory()
+    {
+        string path = Application.persistentDataPath + "/Inventory.json";
+        if (File.Exists(path))
+        {
+            string loadData = File.ReadAllText(path);
+            _loadedItemdata = JsonUtility.FromJson<ArrayItemData>(loadData);
+            return;
+        }
+        else
+        {
+            TextAsset jsonItemData = Resources.Load<TextAsset>("StartItems");
+            _loadedItemdata = JsonUtility.FromJson<ArrayItemData>(jsonItemData.text);
+        }
+    }
 
+    public void SaveInventory()
+    {
+        ArrayItemData save = new ArrayItemData
+        {
+            startItems = new List<ItemData>()
+        };
+        string[] itemsID = _inventory.GetItemsID();
+        for (int i = 0; i < itemsID.Length; i++)
+        {
+            save.startItems.Add(new ItemData(itemsID[i], Inventory.instance.GetAmountByID(itemsID[i])));
+        }
+        string saveData = JsonUtility.ToJson(save);
+        File.WriteAllText(Application.persistentDataPath + "/inventory.json", saveData);
+    }
 
 
 }
